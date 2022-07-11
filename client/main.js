@@ -48,7 +48,7 @@ addShipBtn.addEventListener('click', addShip)
 const updateShipBtn = document.getElementById('update');
 
 const updateShip = () => {
-    axios.put("http://localhost:4000/api/ships:id", updateShip)
+    axios.put(`${baseURL}:id`, updateShip)
     .then(shipsCallback).catch(errCallback)
 }
 
@@ -57,7 +57,7 @@ updateShipBtn.addEventListener('click', updateShip)
 const deleteShipBtn = document.getElementById('deleteShipButton')
 
 const deleteShip = () => {
-    axios.delete(baseURL, deleteShip).then(shipsCallback).catch(errCallback)
+    axios.delete(`${baseURL}:id`, deleteShip).then(shipsCallback).catch(errCallback)
 }
 
 deleteShipBtn.addEventListener('click', deleteShip)
