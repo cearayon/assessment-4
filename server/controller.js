@@ -46,7 +46,7 @@ module.exports = {
         const existingName = +req.params.name
         let index = ships.findIndex(ships =>ships.name === existingName)
 
-        if(req.body.type === '') {
+        if(req.body.type.contains('')) {
             ships.name = existingName
             res.status(200).send(ships)
         }
