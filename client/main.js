@@ -29,10 +29,12 @@ const shipInput = document.getElementById('shipInput'); //grab text field for ad
 const addShipBtn = document.getElementById('addShipButton'); //grab add ship button
 
 const addShip = () => {
-    const shipInput = {
-        name: shipInput.value 
+    const shipBody = {
+        ship: shipInput.value 
     }
-    axios.post("http://localhost:4000/api/add/ships", shipInput)
+    
+    axios
+    .post("http://localhost:4000/api/add/ships", shipBody)
     .then((res) => {
         alert(res.data);
     })
@@ -45,6 +47,7 @@ addShipBtn.addEventListener('click', addShip)
 
 const updateShipBtn = document.getElementById('update');
 const updateIndex = document.getElementById('indexSelectUpdate')
+const updateNameInput = document.getElementById("updateName" )
 
 const updateShip = () => {
     const updateInput = {
@@ -62,6 +65,9 @@ const deleteShipBtn = document.getElementById('deleteShipButton')
 const deleteIndex = document.getElementById('indexSelectDelete')
 const deleteShip = () => {
     axios.delete(`http://localhost:4000/api/delete/ships/${indexSelectDelete.value}`)
+    .then((res) => {
+        alert(res.data)
+    })
 
 }
 

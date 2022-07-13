@@ -1,6 +1,5 @@
-// const ships = require('./db.json')
-// let globalId = 3
-const shipsArr = ['Razor Crest', 'Slave 1', 'Millenium Falcon']
+
+const shipsArr = ['Razor Crest', 'Slave 1', 'Millenium Falcon'];
 
 module.exports = {
     //don't edit code below//
@@ -28,7 +27,7 @@ module.exports = {
     addShip: (req, res) => {
         console.log("endpoint hit");
         console.log(req.body);
-        shipsArr.push(req.body.name);
+        shipsArr.push(req.body.ship);
         res.status(200).send(shipsArr);
 
 
@@ -39,9 +38,9 @@ module.exports = {
         console.log(req.params);
         console.log(req.body)
         const indexToEdit = +req.params.id;
-        shipsArr[indexToEdit] = req.body.updateShip
-        }
-    ,
+        shipsArr[indexToEdit] = req.body.updateName
+        res.status(200).send(shipsArr)
+        },
 
     deleteShip: (req,res) => {
         console.log("ENDPOINT HIT")
@@ -50,6 +49,7 @@ module.exports = {
         
         const indexToDelete = +req.params.id
         shipsArr.splice(indexToDelete,1);
+        res.status(200).send(shipsArr);
     }
 
 }
