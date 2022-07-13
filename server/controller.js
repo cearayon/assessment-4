@@ -1,5 +1,6 @@
-const ships = require('./db.json')
-let globalId = 3
+// const ships = require('./db.json')
+// let globalId = 3
+const shipsArr = ['Razor Crest', 'Slave 1', 'Millenium Falcon']
 
 module.exports = {
     //don't edit code below//
@@ -25,40 +26,30 @@ module.exports = {
     },
 
     addShip: (req, res) => {
-        const {name, manufacturer, imageURL} = req.body
-
-        let newShip = {
-            name,
-            manufacturer,
-            imageURL,
-            id: globalId
-        }
-
-        ships.push(newShip);
-        res.status(200).send(ships);
-        globalId++;
-        console.log(ships);
+        console.log("endpoint hit");
+        console.log(req.body);
+        shipsArr.push(req.body.name);
+        res.status(200).send(shipsArr);
 
 
     },
 
     updateShip: (req, res) => {
-        const existingName = +req.params.name
-        let index = ships.findIndex(ships =>ships.name === existingName)
-
-        if(req.body.type.contains('')) {
-            ships.name = existingName
-            res.status(200).send(ships)
+        console.log('endpoint hit');
+        console.log(req.params);
+        console.log(req.body)
+        const indexToEdit = +req.params.id;
+        shipsArr[indexToEdit] = req.body.updateShip
         }
-    },
+    ,
 
     deleteShip: (req,res) => {
-        const existingId = +req.params.id
-
-        let index = ships.findIndex(ship => ship.id === existingId)
-        ships.splice(index, 1)
-        res.status(200).send(ships)
+        console.log("ENDPOINT HIT")
+        console.log(req.params);
         
+        
+        const indexToDelete = +req.params.id
+        shipsArr.splice(indexToDelete,1);
     }
 
 }

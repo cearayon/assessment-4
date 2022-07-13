@@ -9,14 +9,15 @@ app.use(express.json());
 
 const { getCompliment, getName, addShip, deleteShip, updateShip } = require('./controller')
 
+//write endpoints
 app.get("/api/compliment", getCompliment);
 
 app.get("/api/name", getName);
 
-app.post("/api/name", addShip)
+app.post("/api/add/ships", addShip)
 
-app.put("/api/ships:id", updateShip)
+app.put("/api/update/ships/:id", updateShip)
 
-app.delete("/api/ships:id", deleteShip)
+app.delete("/api/delete/ships/:id", deleteShip)
 
 app.listen(4000, () => console.log("Server running on 4000"));

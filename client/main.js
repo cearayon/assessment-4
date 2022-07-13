@@ -1,12 +1,4 @@
 const shipsContainer = document.querySelector('shipContainer')
-const baseURL = `http://localhost:4000/api/ships/`
-const shipsCallback = ({data:ships}) => displayShips(ships)
-const errCallback = err => console.log(err.response.data)
-
-const getAllShips = () => axios.get(baseURL).then(shipsCallback).catch(errCallback)
-
-
-
 const complimentBtn = document.getElementById("complimentButton")
 
 const getCompliment = () => {
@@ -17,13 +9,13 @@ const getCompliment = () => {
     });
 };
 
-complimentBtn.addEventListener('click', getCompliment)
+complimentBtn.addEventListener('click', getCompliment);
 
 
 const nameBtn = document.getElementById('nameButton');
 
 const getName = () => {
-    axios.get("http://localhost:4000/api/name/")
+    axios.get("http://localhost:4000/api/name")
     .then(res => {
         const data = res.data;
         alert(data)
@@ -32,12 +24,18 @@ const getName = () => {
 
 nameBtn.addEventListener('click', getName)
 
+const shipInput = document.getElementById('shipInput'); //grab text field for adding ship
 
-const addShipBtn = document.getElementById('addShipButton');
+const addShipBtn = document.getElementById('addShipButton'); //grab add ship button
 
 const addShip = () => {
-    axios.post(baseURL, addShip)
-    .then(shipsCallback).catch(errCallback)
+    const shipInput = {
+        name: shipInput.value 
+    }
+    axios.post("http://localhost:4000/api/add/ships", shipInput)
+    .then((res) => {
+        alert(res.data);
+    })
     
 };
 
@@ -46,18 +44,25 @@ addShipBtn.addEventListener('click', addShip)
 
 
 const updateShipBtn = document.getElementById('update');
+const updateIndex = document.getElementById('indexSelectUpdate')
 
 const updateShip = () => {
-    axios.put(`${baseURL}:id`, updateShip)
-    .then(shipsCallback).catch(errCallback)
+    const updateInput = {
+        updateName: updateNameInput.value
+    }
+    axios.put(`http://localhost:4000/api/update/ships/${indexSelectUpdate.value}`, updateInput)
+    .then((res) => {
+        alert(res.data);
+    })
 }
 
 updateShipBtn.addEventListener('click', updateShip)
 
 const deleteShipBtn = document.getElementById('deleteShipButton')
-
+const deleteIndex = document.getElementById('indexSelectDelete')
 const deleteShip = () => {
-    axios.delete(`${baseURL}:id`, deleteShip).then(shipsCallback).catch(errCallback)
+    axios.delete(`http://localhost:4000/api/delete/ships/${indexSelectDelete.value}`)
+
 }
 
 deleteShipBtn.addEventListener('click', deleteShip)
@@ -65,30 +70,3 @@ deleteShipBtn.addEventListener('click', deleteShip)
 
 
 
-function displayShips(arr) {
-    shipsContainer.innerHTML = ``
-    for (let i = 0; i < arr.length; i++){
-        createShipCard(arr[i])
-    }
-}
-
-const form = document.querySelector('form')
-function submitHandler(e) {
-    e.preventDefault()
-
-    let name = document.querySelector('#name')
-    let manufacturer = document.querySelector('#manufacturer')
-    let imageURL = document.querySelector('#URL')
-
-    let bodyObj = {
-        name : name.value,
-        manufacturer: manufacturer.value,
-        imageURL: imageURL.value
-    }
-
-    addShip(bodyObj)
-
-    name.value = ''
-    manufacturer.value = ''
-    imageURL.value = ''
-}
